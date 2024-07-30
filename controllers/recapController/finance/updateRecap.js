@@ -2,7 +2,7 @@ const {finance} = require('../../../models')
 
 const updateRecapFin = async (req,res)=>{
     const {id} = req.params
-    const {income,exp} = req.body
+    const {income,exp,information} = req.body
     try {
         const financeUpdate = await finance.findOne({
             where : {
@@ -17,6 +17,7 @@ const updateRecapFin = async (req,res)=>{
         }
         financeUpdate.income = income ? income : financeUpdate.income
         financeUpdate.expenditure = exp ? exp : financeUpdate.expenditure
+        financeUpdate.information = information ? information : financeUpdate.information
         
         const result = financeUpdate.income - financeUpdate.expenditure
         let prof,loss;
@@ -29,7 +30,7 @@ const updateRecapFin = async (req,res)=>{
         await financeUpdate.save()
         
         return res.json({
-            message : 'finance recap has been created',
+            message : 'finance recap has been updated',
         })
     } catch (error) {
         console.log(error);

@@ -1,7 +1,7 @@
 const {inventory} = require('../../../models')
 
 const updateInvent = async (req,res)=>{
-    const id = req.params.id
+    const {id} = req.params
     const {name,stock,price,description} = req.body
     try {
         const product = await inventory.findOne({
