@@ -1,4 +1,5 @@
 const {user,Store} = require('../../models')
+const bcrypt = require('bcrypt')
 const fs = require('fs')
 
 const updateUser = async (req,res)=>{
@@ -36,7 +37,7 @@ const updateUser = async (req,res)=>{
         
         userUpdate.username = name ? name : userUpdate.name
         userUpdate.email = email ? email : userUpdate.email
-        userUpdate.password = password ? password : userUpdate.password
+        userUpdate.password = password ? await bcrypt.hash(password,10) : userUpdate.password
 
         await userUpdate.save()
 
