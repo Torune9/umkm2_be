@@ -5,7 +5,7 @@ const assignTask = require('../../controllers/workController/task/assignTask')
 const setStatus = require('../../controllers/workController/task/setStatusTask')
 const getTask = require('../../controllers/workController/task/getTask')
 
-taskRouter.get('/space/task',getTask)
+taskRouter.get('/space/task/:id',getTask)
 
 taskRouter.post('/space/task',addTask)
 

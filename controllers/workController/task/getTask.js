@@ -1,11 +1,11 @@
 const {task,user} = require('../../../models')
 
 const getTask = async (req,res) => {
+    const {id} = req.params
     try {
         const tasks = await task.findAll({
-            include : {
-                model : user,
-                attributes : ['username','email']
+            where : {
+                workspaceId : id
             }
         })
         if (!tasks) {
@@ -19,7 +19,7 @@ const getTask = async (req,res) => {
         })
     } catch (error) {
         console.log(error);
-        return req.status(500).json({
+        return res.status(500).json({
             message : 'error when catching tasks data',
             errors : error
         })
