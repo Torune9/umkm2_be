@@ -13,6 +13,9 @@ app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({
     extended : false
 }))
+
+app.get("/", (req, res) => res.send("Express on Vercel"));
+
 app.use(router)
 app.use((req, res, next) => {
     res.status(404).render('notFound');
@@ -21,3 +24,5 @@ app.use((req, res, next) => {
 app.listen(port,()=>{
     console.log(`server running on port ${port}`)
 })
+
+module.exports = app
