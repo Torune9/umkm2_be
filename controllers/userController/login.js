@@ -20,7 +20,7 @@ const login = async (req,res)=>{
         })
         if (!userAuth) {
             return res.status(404).json({
-                message : 'Login failed,account not found'
+                message : 'account not found'
             })
         }
         const src = `${req.protocol}://${req.get('host')}/source/profile/${userAuth.profile}`
@@ -36,7 +36,7 @@ const login = async (req,res)=>{
         
         if (!isLogin) {
             return res.status(400).json({
-                message : 'Login failed,wrong email or password '
+                message : 'wrong email or password '
             })
         }else{
             return res.json({
