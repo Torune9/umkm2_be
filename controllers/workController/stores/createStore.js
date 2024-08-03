@@ -2,11 +2,11 @@ const {Store} = require('../../../models');
 const generateRandomCode = require('../../../service/utils/generateRandomChar');
 
 const createStore = async (req,res)=>{
-    const {name,description,userId} = req.body
+    const {name,description,userId,noHp} = req.body
     const profileImg = req.file
     console.log(req.file);
     try {
-        if (!name || !description || !userId) {
+        if (!name || !description || !userId || !noHp) {
             return res.status(406).json({
                 message : 'invalid value',
             })
@@ -15,7 +15,8 @@ const createStore = async (req,res)=>{
             name,
             description,
             userId,
-            code : generateRandomCode(5)
+            code : generateRandomCode(5),
+            phoneNumber : noHp,
         }
         if (profileImg) {
             data.img  = profileImg.filename

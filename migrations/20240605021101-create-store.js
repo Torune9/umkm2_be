@@ -21,6 +21,9 @@ module.exports = {
       code : {
         type : Sequelize.STRING
       },
+      phoneNumber : {
+        type : Sequelize.STRING
+      },
       img : {
         type: Sequelize.STRING
       },
