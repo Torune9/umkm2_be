@@ -8,7 +8,7 @@
     "migrate:up": "npx sequelize-cli db:migrate",
     "migrate:down": "npx sequelize-cli db:migrate:undo:all",
     "test": "echo \"Error: no test specified\" && exit 1",
-    "vercel-build": "echo 'Build complete'"
+    "vercel-build": "echo 'Build complete' npx sequelize-cli db:migrate"
   },
   "author": "rahman nurhayadi",
   "license": "ISC",
