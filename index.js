@@ -1,6 +1,5 @@
 require('dotenv').config()
-
-require('pg')
+import pg from 'pg'
 
 const express = require('express')
 const app = express()
@@ -8,6 +7,17 @@ const port = 3000
 const cors = require('cors')
 const bodyParser = require('body-parser')
 const router = require('./router/router')
+
+
+const { Pool } = pg;
+
+const pool = new Pool({
+  connectionString: process.env.POSTGRES_URL,
+})
+
+pool.connect()
+  .then(() => console.log('Connected to PostgreSQL'))
+  .catch((err) => console.error('Connection error', err.stack))
 
 app.set('view engine','ejs')
 
