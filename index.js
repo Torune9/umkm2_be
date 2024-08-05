@@ -24,12 +24,9 @@ app.use((req, res, next) => {
     res.status(404).render('notFound');
 });
 
-<<<<<<< HEAD
 app.listen(port,()=>{
     console.log('server runnning at port 3000');
     
 })
-=======
->>>>>>> dev-be
 
 module.exports = app
