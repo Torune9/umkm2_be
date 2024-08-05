@@ -16,7 +16,7 @@ const createStore = async (req,res)=>{
             description,
             userId,
             code : generateRandomCode(5),
-            phoneNumber : phoneNumber,
+            phoneNumber,
         }
         if (profileImg) {
             data.img  = profileImg.filename
