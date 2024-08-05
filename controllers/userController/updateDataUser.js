@@ -1,11 +1,11 @@
 const {user,Store} = require('../../models')
 const bcrypt = require('bcrypt')
 const fs = require('fs')
+const cloudinary = require('cloudinary').v2;
 
 const updateUser = async (req,res)=>{
     const {id,name,email,password} = req.body
     const profileImage = req.file
-    console.log(name);
     try {
         const userUpdate = await user.findOne({
             where : {
@@ -28,11 +28,14 @@ const updateUser = async (req,res)=>{
                 message : 'email has already taken,try another username'
             })
         }
+        // If there's a new profile image, delete the old one from Cloudinary
         if (profileImage) {
-            if(fileExist) fs.unlink(path,(error => {
-                console.log(error);
-            }))
-            userUpdate.profile = profileImage.filename
+            if (userUpdate.profile) {
+                // Assuming `profile` field stores the public_id from Cloudinary
+                await cloudinary.uploader.destroy(userUpdate.profile);
+            }
+            // Save the new image to Cloudinary and store its public_id
+            userUpdate.profile = profileImage.filename; // You should update this to the Cloudinary public_id
         }
         
         userUpdate.username = name ? name : userUpdate.name

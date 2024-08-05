@@ -20,7 +20,7 @@ const createProduct = async (req,res)=>{
             })
         }
         if (uploadImage) {
-            data.img = uploadImage.filename
+            data.img = uploadImage.path
         }
         await product.create(data)
         return res.json({

@@ -4,7 +4,7 @@ const generateRandomCode = require('../../../service/utils/generateRandomChar');
 const createStore = async (req,res)=>{
     const {name,description,userId,phoneNumber} = req.body
     const profileImg = req.file
-    console.log(req.body);
+    console.log(req.file);
     try {
         if (!name || !description || !userId || !phoneNumber) {
             return res.status(406).json({
@@ -19,7 +19,7 @@ const createStore = async (req,res)=>{
             phoneNumber,
         }
         if (profileImg) {
-            data.img  = profileImg.filename
+            data.img  = profileImg.path
         }
         await Store.create(data) 
         return res.json({
