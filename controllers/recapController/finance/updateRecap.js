@@ -6,7 +6,7 @@ const updateRecapFin = async (req,res)=>{
     try {
         const financeUpdate = await finance.findOne({
             where : {
-                id : id
+                storeId : id
             }
         })
         

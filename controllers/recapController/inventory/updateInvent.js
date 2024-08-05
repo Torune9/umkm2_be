@@ -6,7 +6,7 @@ const updateInvent = async (req,res)=>{
     try {
         const product = await inventory.findOne({
             where : {
-                id : id
+                storeId : id
             }
         })
         if (!product) {
