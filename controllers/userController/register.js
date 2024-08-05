@@ -19,6 +19,16 @@ const register = async (req,res)=>{
             username : data.username,
             email : data.email,
             password : hashPassword,
+        }
+        const userEmail = await user.findOne({
+            where : {
+                email : email
+            }
+        })
+        if (userEmail) {
+            return res.status(400).json({
+                message : 'email has already taken,try another username'
+            })
         } 
         
         if (result.isEmpty()) {
