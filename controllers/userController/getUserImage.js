@@ -18,7 +18,7 @@ const getUserImageByEmail = async (req,res) => {
         const src = `${req.protocol}://${req.get('host')}/source/profile/${userData.profile}`
         return res.json({
             message : 'user image found',
-            data : userData.profile ? src : userData.profile
+            data : userData.profile
         })
     } catch (error) {
         return res.status(500).json({
