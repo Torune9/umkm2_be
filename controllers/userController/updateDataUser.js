@@ -35,7 +35,7 @@ const updateUser = async (req,res)=>{
                 await cloudinary.uploader.destroy(userUpdate.profile);
             }
             // Save the new image to Cloudinary and store its public_id
-            userUpdate.profile = profileImage.filename; // You should update this to the Cloudinary public_id
+            userUpdate.profile = profileImage.path; // You should update this to the Cloudinary public_id
         }
         
         userUpdate.username = name ? name : userUpdate.name

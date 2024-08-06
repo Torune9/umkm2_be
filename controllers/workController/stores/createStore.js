@@ -2,9 +2,8 @@ const {Store} = require('../../../models');
 const generateRandomCode = require('../../../service/utils/generateRandomChar');
 
 const createStore = async (req,res)=>{
-    const {name,description,userId,phoneNumber} = req.body
+    const {name,description,userId,phoneNumber,imageURL} = req.body
     const profileImg = req.file
-    console.log(req.file);
     try {
         if (!name || !description || !userId || !phoneNumber) {
             return res.status(406).json({
