@@ -1,6 +1,7 @@
 const { error } = require('console')
 const {product} = require('../../../../models')
 const fs = require('fs')
+const cloudinary = require('cloudinary').v2;
 
 const updateProduct = async (req,res)=>{
     const {id} = req.params
@@ -23,14 +24,11 @@ const updateProduct = async (req,res)=>{
         foundProduct.price = price ? price : foundProduct.price
         foundProduct.stock = stock ? stock : foundProduct.stock
         foundProduct.information = information ? information : foundProduct.information
-        const pathImageProduct = `uploads/image/${foundProduct.img}`
-        const existImage = fs.existsSync(pathImageProduct)
-        
-        if (imageUploadUpdate && existImage) {
-            fs.unlink(pathImageProduct,(err) => console.log(error))
-        }
 
         if (imageUploadUpdate) {
+            if (foundProduct.img) {
+                await cloudinary.uploader.destroy(foundProduct.img)
+            }
             foundProduct.img = imageUploadUpdate ? imageUploadUpdate.filename : foundProduct.img
         }
         await foundProduct.save()
