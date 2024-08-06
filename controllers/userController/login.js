@@ -29,7 +29,7 @@ const login = async (req,res)=>{
             member: userAuth.member_id,
             username : userAuth.username,
             email : email,
-            image : userAuth.profile ? src : userAuth.profile ,
+            image : userAuth.profile ,
         },process.env.SECRET_KEY)
         
         const isLogin = await bcrypt.compare(password,userAuth.password)
