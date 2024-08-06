@@ -15,7 +15,6 @@ const getUserImageByEmail = async (req,res) => {
                 message : 'user not found'
             })
         }
-        const src = `${req.protocol}://${req.get('host')}/source/profile/${userData.profile}`
         return res.json({
             message : 'user image found',
             data : userData.profile
