@@ -18,9 +18,10 @@ app.use(bodyParser.urlencoded({
     extended : false
 }))
 
-app.get("/", (req, res) => res.send("Express on Vercel"));
 
 app.use(router)
+
+app.get("/", (req, res) => res.send("Express on Vercel"));
 
 app.use((req, res, next) => {
     res.status(404).render('notFound');
