@@ -5,6 +5,7 @@ const getStoreAsEmployee = require('../../controllers/workController/stores/getS
 const getEmployeeStore = require('../../controllers/workController/stores/getEmployeeStore')
 const updateStore = require('../../controllers/workController/stores/updateStore')
 const { upload, filter } = require('../../service/utils/imageUploads')
+const generateTransaction = require('../../controllers/payment/midtrans')
 
 const storeRouter = require('express').Router()
 
@@ -19,6 +20,8 @@ storeRouter.get('/user/store/employee/:id',getEmployeeStore)
 storeRouter.post('/user/store',upload.single('image'),createStore)
 
 storeRouter.put('/user/store/:id',updateStore)
+
+storeRouter.post('/product/payment',generateTransaction)
 
 storeRouter.use(filter)
 
