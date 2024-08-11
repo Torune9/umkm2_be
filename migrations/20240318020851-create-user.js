@@ -31,6 +31,9 @@ module.exports = {
       member_id: {
         type : Sequelize.INTEGER
       },
+      role : {
+        type : Sequelize.STRING
+      },
       createdAt: {
         allowNull: false,
         type: Sequelize.DATE

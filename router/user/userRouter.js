@@ -7,6 +7,7 @@ const updateMember = require('../../controllers/userController/updateMember')
 const getUserImageByEmail = require('../../controllers/userController/getUserImage')
 const userUpdateData = require('../../controllers/userController/updateDataUser')
 const { upload,filter } = require('../../service/utils/imageUploads')
+const updateRoleUser = require('../../controllers/userController/updateUserRole')
 
 
 userRouter.get('/user/image/:id',getUserImageByEmail)
@@ -22,6 +23,8 @@ userRouter.put('/user/update',upload.single('image'),userUpdateData)
 userRouter.get('/user/invite/:userId',sendInviteLink)
 
 userRouter.put('/user/join',updateMember)
+
+userRouter.put('/user/role/:id',updateRoleUser)
 
 userRouter.use(filter)
 

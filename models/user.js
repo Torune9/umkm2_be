@@ -38,7 +38,8 @@ module.exports = (sequelize, DataTypes) => {
     reset_token: DataTypes.STRING,
     profile: DataTypes.STRING,
     member_id : DataTypes.INTEGER,
-    exp_token : DataTypes.DATE
+    exp_token : DataTypes.DATE,
+    role : DataTypes.STRING
   }, {
     sequelize,
     modelName: 'user',
