@@ -19,7 +19,8 @@ module.exports = (sequelize, DataTypes) => {
     quantity: DataTypes.INTEGER,
     order_id: DataTypes.STRING,
     email: DataTypes.STRING,
-    token: DataTypes.STRING
+    token: DataTypes.STRING,
+    status : DataTypes.STRING
   }, {
     sequelize,
     modelName: 'orders',
