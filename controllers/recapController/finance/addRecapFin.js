@@ -8,8 +8,8 @@ const addRecapFin = async (req,res)=>{
                 message : 'can,t be recap,store not found'
             })
         }
-        if (!income || !exp) {
-            return res.status(400).json({
+        if (income == null && exp == null) {
+            return res.status(404).json({
                 message : 'invalid value'
             })
         }
