@@ -4,10 +4,9 @@ npm install --save midtrans-client*/
 //SAMPLE REQUEST START HERE
 
 const midtransClient = require("midtrans-client");
+const {orders} = require('../../models')
 const generateTransaction = (req, res) => {
-  const {items,customer} = req.body
-  console.log(req.body);
-  
+  const {items,customer} = req.body  
     try {
       const generateOrderId = () => {
         const now = Date.now();
@@ -40,11 +39,22 @@ const generateTransaction = (req, res) => {
           first_name: customer.name,
           email: customer.email,
         },
+        enabled_payments :['kredivo','other_qris','shopee_pay','gopay']
       };
     
-      snap.createTransaction(parameter).then((transaction) => {
+      snap.createTransaction(parameter).then(async(transaction) => {
         // transaction token
         let transactionToken = transaction.token;
+        const data = {
+          product_id : items.id,
+          name : items.name,
+          quantity : 1,
+          order_id : parameter.transaction_details.order_id,
+          email : customer.email,
+          token : transactionToken
+        }
+  
+        await orders.create(data)
         console.log("transactionToken:", transactionToken);
         return res.json({
           token : transactionToken
