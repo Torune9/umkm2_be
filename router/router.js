@@ -7,7 +7,8 @@ const router = [
     routes.inventoriesRouter,
     routes.storeRouter,
     routes.productRouter,
-    routes.financeRouter
+    routes.financeRouter,
+    routes.orderRouter
 ]
 
 module.exports = router

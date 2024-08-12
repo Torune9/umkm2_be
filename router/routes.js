@@ -6,6 +6,7 @@ const inventoriesRouter = require('./recap/inventoriesRouter')
 const storeRouter = require('./user/storeRouter')
 const productRouter = require('./user/productRouter')
 const financeRouter = require('./recap/financeRouter')
+const orderRouter = require('./payment/orderRouter')
 
 module.exports = {
     authRouter,
@@ -15,5 +16,6 @@ module.exports = {
     inventoriesRouter,
     storeRouter,
     productRouter,
-    financeRouter
+    financeRouter,
+    orderRouter
 }
