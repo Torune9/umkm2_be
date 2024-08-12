@@ -1,12 +1,16 @@
+const { Op } = require('sequelize')
 const {finance} = require('../../../models')
 
 const updateRecapFin = async (req,res)=>{
-    const {id} = req.params
+    const {storeId,id} = req.params
     const {income,exp,information} = req.body
     try {
         const financeUpdate = await finance.findOne({
             where : {
-                storeId : id
+                [Op.and] :[
+                    {storeId : storeId},
+                    {id : id}
+                ] 
             }
         })
         
