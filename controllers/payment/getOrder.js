@@ -1,7 +1,7 @@
 const {orders} = require('../../models')
 
 const getOrder = async (req,res) => {
-    const {email} = req.params  
+    const {email} = req.query   
     try {
         const orderUser = await orders.findAll({
             where : {
