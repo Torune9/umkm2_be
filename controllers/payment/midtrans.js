@@ -46,7 +46,7 @@ const generateTransaction = (req, res) => {
           username : customer.name,
           product_id : items.id,
           name : items.name,
-          quantity : 1,
+          quantity : quantity,
           order_id : parameter.transaction_details.order_id,
           email : customer.email,
           token : transactionToken,
