@@ -11,6 +11,6 @@ financeRouter.post('/user/finance',addRecapFin)
 
 financeRouter.post('/user/finance/report/:id',getFinanceReport)
 
-financeRouter.put('/user/finance/:id',updateRecapFin)
+financeRouter.put('/user/finance/:storeId/:id',updateRecapFin)
 
 module.exports = financeRouter
