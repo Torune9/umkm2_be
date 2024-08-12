@@ -9,6 +9,9 @@ module.exports = {
         primaryKey: true,
         type: Sequelize.INTEGER
       },
+      username : {
+        type : Sequelize.STRING
+      },
       name: {
         type: Sequelize.STRING
       },
@@ -29,6 +32,9 @@ module.exports = {
       },
       token: {
         type: Sequelize.STRING
+      },
+      total  :{
+        type : Sequelize.INTEGER
       },
       createdAt: {
         allowNull: false,

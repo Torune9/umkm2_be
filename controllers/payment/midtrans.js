@@ -1,12 +1,9 @@
-/*Install midtrans-client (https://github.com/Midtrans/midtrans-nodejs-client) NPM package.
-npm install --save midtrans-client*/
-
-//SAMPLE REQUEST START HERE
-
 const midtransClient = require("midtrans-client");
 const {orders} = require('../../models')
 const generateTransaction = (req, res) => {
-  const {items,customer} = req.body  
+  console.log(req.body);
+  
+  const {items,customer,quantity,totalPrice} = req.body  
     try {
       const generateOrderId = () => {
         const now = Date.now();
@@ -23,7 +20,7 @@ const generateTransaction = (req, res) => {
       let parameter = {
         transaction_details: {
           order_id: generateOrderId(),
-          gross_amount: items.price,
+          gross_amount: totalPrice,
         },
         credit_card: {
           secure: true,
@@ -31,9 +28,9 @@ const generateTransaction = (req, res) => {
         item_details : {
           id : items.id,
           name : items.name,
-          quantity : 1,
+          quantity : quantity,
           price : items.price,
-          total : items.price
+          total : totalPrice
         },
         customer_details: {
           first_name: customer.name,
@@ -46,12 +43,14 @@ const generateTransaction = (req, res) => {
         // transaction token
         let transactionToken = transaction.token;
         const data = {
+          username : customer.name,
           product_id : items.id,
           name : items.name,
           quantity : 1,
           order_id : parameter.transaction_details.order_id,
           email : customer.email,
-          token : transactionToken
+          token : transactionToken,
+          total : totalPrice
         }
   
         await orders.create(data)
