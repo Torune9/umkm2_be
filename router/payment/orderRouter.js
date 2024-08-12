@@ -6,7 +6,7 @@ const updateStatusOrder = require('../../controllers/payment/updateStatuOrder');
 const orderRouter = require('express').Router()
 
 
-orderRouter.get('/order',getOrder)
+orderRouter.get('/order/:email',getOrder)
 
 orderRouter.post('/midtrans-webhook/',handleMidtransNotification)
 
