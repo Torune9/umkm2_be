@@ -61,7 +61,16 @@ const handleMidtransNotification = async (req, res) => {
                 // Atur status order ke 'expired' dan kembalikan stok produk jika diperlukan
                 order.status = 'expired';
                 console.log('Transaction status updated to expired');
-                // (Optional) Kembalikan stok produk jika diperlukan
+                // Kembalikan stok produk jika diperlukan
+                prod.stock += order.quantity;
+                await prod.save();
+                break;
+
+            case 'cancel':
+                // Atur status order ke 'cancelled'
+                order.status = 'cancelled';
+                console.log('Transaction status updated to cancelled');
+                // Kembalikan stok produk jika diperlukan
                 prod.stock += order.quantity;
                 await prod.save();
                 break;
