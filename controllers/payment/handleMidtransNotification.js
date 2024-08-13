@@ -45,8 +45,6 @@ const handleMidtransNotification = async (req, res) => {
             case 'capture':
             case 'settlement':
                 // Update stock product jika transaksi sukses
-                prod.stock -= order.quantity;
-                await prod.save();
                 order.status = 'settlement'; // Atur status order ke 'settlement'
                 console.log('Transaction status updated to settlement');
                 break;
@@ -82,7 +80,6 @@ const handleMidtransNotification = async (req, res) => {
         }
 
         // Update order status in database
-        await order.save();
 
         return res.status(200).json({ message: 'Notification handled successfully' });
 

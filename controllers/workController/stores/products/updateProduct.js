@@ -5,7 +5,7 @@ const cloudinary = require('cloudinary').v2;
 
 const updateProduct = async (req,res)=>{
     const {id} = req.params
-    const {name,price,information,stock} = req.body
+    const {name,price,information} = req.body
     const imageUploadUpdate = req.file
     try {
         const foundProduct = await product.findOne({
@@ -22,7 +22,6 @@ const updateProduct = async (req,res)=>{
         
         foundProduct.name = name ? name : foundProduct.name
         foundProduct.price = price ? price : foundProduct.price
-        foundProduct.stock = stock ? stock : foundProduct.stock
         foundProduct.information = information ? information : foundProduct.information
 
         if (imageUploadUpdate) {

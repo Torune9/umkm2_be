@@ -36,7 +36,6 @@ const generateTransaction = (req, res) => {
           first_name: customer.name,
           email: customer.email,
         },
-        enabled_payments :['kredivo','other_qris','shopee_pay','gopay']
       };
     
       snap.createTransaction(parameter).then(async(transaction) => {

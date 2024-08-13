@@ -2,17 +2,16 @@ const {product} = require('../../../../models')
 
 const createProduct = async (req,res)=>{
     try {
-        const {name,price,stock,information,storeId} = req.body
+        const {name,price,information,storeId} = req.body
         const uploadImage = req.file
         const data = {
             name,
             price,
-            stock,
             information,
             storeId
         }
 
-        if (!name|!price|!stock|!information|!storeId) {
+        if (!name|!price|!information|!storeId) {
             return res.status(400).json({
                 error : {
                     message : 'all field can,t be empty'
