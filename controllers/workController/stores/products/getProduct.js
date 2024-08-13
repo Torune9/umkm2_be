@@ -7,7 +7,7 @@ const getAllProducts = async (req,res)=>{
             where : {
                 storeId : id
             },
-            attributes :['id','name','price','stock','information','img','storeId']
+            attributes :['id','name','price','information','img','storeId']
         })
         return res.json({
             data : {
