@@ -1,9 +1,9 @@
 const midtransClient = require("midtrans-client");
-const {orders} = require('../../models')
+const {orders,product_sales} = require('../../models')
 const generateTransaction = (req, res) => {
   console.log(req.body);
   
-  const {items,customer,quantity,totalPrice} = req.body  
+  const {items,customer,quantity,totalPrice,storeId} = req.body  
     try {
       const generateOrderId = () => {
         const now = Date.now();
@@ -36,12 +36,15 @@ const generateTransaction = (req, res) => {
           first_name: customer.name,
           email: customer.email,
         },
+        enabled_payments :['kredivo','other_qris','shopee_pay','gopay']
       };
     
       snap.createTransaction(parameter).then(async(transaction) => {
         // transaction token
         let transactionToken = transaction.token;
-        const data = {
+
+        const dataOrder = {
+          storeId : storeId,
           username : customer.name,
           product_id : items.id,
           name : items.name,
@@ -51,8 +54,17 @@ const generateTransaction = (req, res) => {
           token : transactionToken,
           total : totalPrice
         }
+
+        const dataSales = {
+          store_id : storeId,
+          order_id : parameter.transaction_details.order_id,
+          name : items.name,
+          quantity : quantity,
+          total_price : totalPrice
+        }
   
-        await orders.create(data)
+        await orders.create(dataOrder)
+        await product_sales.create(dataSales)
         console.log("transactionToken:", transactionToken);
         return res.json({
           token : transactionToken

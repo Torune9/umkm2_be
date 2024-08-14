@@ -1,5 +1,5 @@
 const midtransClient = require('midtrans-client');
-const { product, orders } = require('../../models'); // Sesuaikan dengan path ke model Product
+const { product, orders,product_sales } = require('../../models'); // Sesuaikan dengan path ke model Product
 
 const handleMidtransNotification = async (req, res) => {
     try {
@@ -36,6 +36,13 @@ const handleMidtransNotification = async (req, res) => {
             }
         });
 
+
+        const salesProduct = await product_sales.findOne({
+            where : {
+                order_id : orderId
+            }
+        })
+
         if (!prod) {
             return res.status(404).json({ message: 'Product not found' });
         }
@@ -45,18 +52,23 @@ const handleMidtransNotification = async (req, res) => {
             case 'capture':
             case 'settlement':
                 // Update stock product jika transaksi sukses
+                prod.stock -= order.quantity;
+                await prod.save();
+                salesProduct.status = 'settlement'
                 order.status = 'settlement'; // Atur status order ke 'settlement'
                 console.log('Transaction status updated to settlement');
                 break;
 
             case 'pending':
                 // Update status order menjadi 'pending'
+                salesProduct.status = 'pending'
                 order.status = 'pending';
                 console.log('Transaction status updated to pending');
                 break;
 
             case 'expire':
                 // Atur status order ke 'expired' dan kembalikan stok produk jika diperlukan
+                salesProduct.status = 'expired'
                 order.status = 'expired';
                 console.log('Transaction status updated to expired');
                 // Kembalikan stok produk jika diperlukan
@@ -64,6 +76,7 @@ const handleMidtransNotification = async (req, res) => {
 
             case 'cancel':
                 // Atur status order ke 'cancelled'
+                salesProduct.status = 'cancelled'
                 order.status = 'cancelled';
                 console.log('Transaction status updated to cancelled');
                 // Kembalikan stok produk jika diperlukan
@@ -71,6 +84,7 @@ const handleMidtransNotification = async (req, res) => {
 
             case 'deny':
                 // Atur status order ke 'denied' jika transaksi ditolak
+                salesProduct.status = 'denied'
                 order.status = 'denied';
                 console.log('Transaction status updated to denied');
                 break;
@@ -80,6 +94,8 @@ const handleMidtransNotification = async (req, res) => {
         }
 
         // Update order status in database
+        await order.save()
+        await salesProduct.save()
 
         return res.status(200).json({ message: 'Notification handled successfully' });
 
