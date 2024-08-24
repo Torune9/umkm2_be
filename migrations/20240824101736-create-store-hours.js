@@ -2,33 +2,27 @@
 /** @type {import('sequelize-cli').Migration} */
 module.exports = {
   async up(queryInterface, Sequelize) {
-    await queryInterface.createTable('Stores', {
+    await queryInterface.createTable('store_hours', {
       id: {
         allowNull: false,
         autoIncrement: true,
         primaryKey: true,
         type: Sequelize.INTEGER
       },
-      name: {
+      store_id: {
+        type: Sequelize.INTEGER
+      },
+      day_of_week: {
         type: Sequelize.STRING
       },
-      description: {
-        type: Sequelize.STRING
+      open_time: {
+        type: Sequelize.TIME
       },
-      userId :{
-        type : Sequelize.INTEGER
+      closed_time: {
+        type: Sequelize.TIME
       },
-      code : {
-        type : Sequelize.STRING
-      },
-      phoneNumber : {
-        type : Sequelize.STRING
-      },
-      img : {
-        type: Sequelize.STRING
-      },
-      address : {
-        type : Sequelize.STRING
+      is_closed: {
+        type: Sequelize.BOOLEAN
       },
       createdAt: {
         allowNull: false,
@@ -41,6 +35,6 @@ module.exports = {
     });
   },
   async down(queryInterface, Sequelize) {
-    await queryInterface.dropTable('Stores');
+    await queryInterface.dropTable('store_hours');
   }
 };
