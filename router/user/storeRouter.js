@@ -23,7 +23,7 @@ storeRouter.get('/user/store/employee/:id',getEmployeeStore)
 
 storeRouter.post('/user/store',upload.single('image'),createStore)
 
-storeRouter.put('/user/store/:id',updateStore)
+storeRouter.put('/user/store/:id',upload.single('image'),updateStore)
 
 storeRouter.post('/product/payment',generateTransaction)
 

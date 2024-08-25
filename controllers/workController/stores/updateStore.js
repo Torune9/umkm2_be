@@ -1,8 +1,11 @@
 const {Store} = require('../../../models')
+const cloudinary = require('cloudinary').v2;
 
 const updateStore = async (req,res)=>{
-    const {name,description} = req.body
+    const {name,description,phoneNumber,address} = req.body
     const id = req.params.id
+    
+    const profileImg = req.file
     try {
         const store = await Store.findOne({
             where : {
@@ -15,8 +18,18 @@ const updateStore = async (req,res)=>{
             message : 'store not found'
            }) 
         }
-        store.name = name
-        store.description = description
+
+        if (profileImg) {
+            if (store.img) {
+                await cloudinary.uploader.destroy(store.img)
+            }
+            store.img = profileImg.path ? profileImg.path : store.img
+        }
+
+        store.name = name ? name : store.name
+        store.description = description ? description : store.description
+        store.phoneNumber = phoneNumber ? phoneNumber : store.phoneNumber
+        store.address = address  ? address : store.address
         await store.save()
         return res.json({
             message : 'store has been updated'
