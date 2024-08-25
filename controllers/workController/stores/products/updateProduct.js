@@ -28,7 +28,7 @@ const updateProduct = async (req,res)=>{
             if (foundProduct.img) {
                 await cloudinary.uploader.destroy(foundProduct.img)
             }
-            foundProduct.img = imageUploadUpdate ? imageUploadUpdate.filename : foundProduct.img
+            foundProduct.img = imageUploadUpdate ? imageUploadUpdate.path : foundProduct.img
         }
         await foundProduct.save()
 
